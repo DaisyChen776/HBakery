@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0cf4c3"],{"62b3":function(t,e,n){"use strict";n.r(e);var c=function(){var t=this,e=t.$createElement;t._self._c;return t._m(0)},r=[function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"cart"},[n("h2",[t._v("這是購物車列表")])])}],s=n("2877"),a={},l=Object(s["a"])(a,c,r,!1,null,null,null);e["default"]=l.exports}}]);
-//# sourceMappingURL=chunk-2d0cf4c3.645ed040.js.map

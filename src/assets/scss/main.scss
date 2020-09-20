@@ -1,86 +1,14 @@
 @import '~bootstrap/scss/functions'; // 官方(node_modules)
-@import './variables'; // 客製化
 @import '~bootstrap/scss/mixins'; // 官方(node_modules)
+@import './variables'; // 客製化 bootstrap 變數
 @import '~bootstrap';
+@import './front';
+@import './front-rwd';
 @import '~quill/dist/quill.snow.css';
 
-.ql-editor {
+.ql-container {
+  font-size: 1rem;
+  .ql-editor {
     height: 200px;
-}
-
-//------------------------------ 前台樣式
-header {
-  width: 100%;
-  padding: 10px 0;
-  // border-bottom: 3px solid #e5dfd7;
-  // background: linear-gradient(90deg, #fffef8, #fff8ec);
-  // background: linear-gradient(90deg, rgba(#fff, 0.8), rgba(#fffef8, 0.7));
-  // background: #fff;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 50;
-
-  .container {
-    display: flex;
-    align-items: center;
-  }
-
-  h1 {
-
-  }
-
-  nav {
-    flex: 1;
-    ul {
-      text-align: right;
-      li {
-        display: inline-block;
-        a {
-          color: #fff;
-          font-size: 1.2rem;
-        }
-      }
-    }
-  }
-}
-
-.index-banner {
-  height: 100vh;
-  padding-top: 1.5rem;
-  background-image: url(@/../assets/img/banner.jpg);
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &::before {
-    // content: '';
-    width: 100%;
-    height: 100%;
-    display: block;
-    background-color: rgba($color: #000, $alpha: 0.3);
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  section {
-    padding: 1.5rem;
-    text-shadow: 2px 2px 2px #000;
-    position: relative;
-    z-index: 1;
-    background-color: rgba($color: #fff, $alpha: 0.2);
-  }
-}
-
-.index-about {
-  padding: 80px 0;
-  background-color: #e8e5e0;
-
-  .about-text {
-    background-color: #f6f5f3;
   }
 }

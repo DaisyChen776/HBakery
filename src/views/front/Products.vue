@@ -1,14 +1,50 @@
 <template>
   <div class="products">
     <Loading :active.sync="isLoading"></Loading>
-    <h2>前台產品列表頁面</h2>
-    <table>
-      <tr v-for="item in products" :key="item.id">
-        <td>{{ item.title }}</td>
-        <td>{{ item.price }}</td>
-        <td><router-link :to="`/product/${item.id}`">連結</router-link></td>
-      </tr>
-    </table>
+    <h2 class="title title-page">
+      <span>產品</span>
+    </h2>
+    <div class="container">
+      <div class="categorys mb-5">
+        <ul>
+          <li class="active">
+            <a href="#" @click.prevent="activeCategory = ''">全部</a>
+          </li>
+          <li v-for="(category, idx) in categorys" :key="idx">
+            <a href="#" @click.prevent="activeCategory = category">{{ category }}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-5" v-for="item in filterProducts" :key="item.id">
+          <router-link :to="`/product/${item.id}`" class="cover"
+              :title="`查看 ${item.title} 詳細資訊`">
+              <img class="img-fluid" :src="item.imageUrl[0]">
+              <div class="pdt-content" v-html="item.content.replaceAll('，','<br>')"></div>
+          </router-link>
+          <div class="info pt-2">
+            <h4 class="text-primary font-weight-bold">{{ item.title }}</h4>
+            <div class="price-box">
+              <p class="origin">售價：{{ item.origin_price }}</p>
+              <p class="price">特價：{{ item.price }}</p>
+            </div>
+            <div class="d-flex">
+              <button type="button" class="btn"
+                :title="`${item.title} 放入購物車`"
+                @click="addCart(item.id)">
+                <i class="fas fa-shopping-cart"></i>
+                放入購物車
+              </button>
+              <router-link :to="`/product/${item.id}`" class="btn"
+                :title="`查看 ${item.title} 詳細資訊`">
+                <i class="fas fa-file-alt"></i>
+                詳細資訊
+              </router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -17,21 +53,49 @@ export default {
   data() {
     return {
       products: [],
+      categorys: [],
+      activeCategory: '',
+      pagination: {},
       isLoading: false,
     };
   },
-  props: ['token'],
-  created() {
-    this.isLoading = true;
-    // axios plugin get api
-    this.$http.get(`${process.env.VUE_APP_APIPATH}/${process.env.VUE_APP_UUID}/ec/products`)
-      .then((res) => {
+  methods: {
+    getProducts(page = 1) {
+      this.isLoading = true;
+      const api = `${process.env.VUE_APP_APIPATH}/${process.env.VUE_APP_UUID}/ec/products?page=${page}&paged=9`;
+      this.$http.get(api).then((res) => {
         this.products = res.data.data;
+        this.pagination = res.data.meta.pagination;
+        this.products.forEach((item) => {
+          if (this.categorys.indexOf(item.category) < 0) {
+            this.categorys.push(item.category);
+          }
+        });
         this.isLoading = false;
-      })
-      .catch(() => {
+      }).catch(() => {
         this.isLoading = false;
       });
+    },
+    addCart(id) {
+      this.$bus.$emit('add-to-cart', id);
+    },
+  },
+  computed: {
+    // 產品分類
+    filterProducts() {
+      if (this.activeCategory) {
+        let filterCategory = [];
+        filterCategory = this.products.filter((item) => item.category === this.activeCategory);
+        return filterCategory;
+      }
+      return this.products;
+    },
+  },
+  created() {
+    this.getProducts();
+  },
+  mounted() {
+    this.$bus.$emit('index-header-ctrl', false);
   },
 };
 </script>
