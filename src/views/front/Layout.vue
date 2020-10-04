@@ -12,13 +12,10 @@
           <div>
             <ul class="menu-list">
               <li>
-                <router-link to="/home" class="nav-link">首頁</router-link>
-              </li>
-              <li>
                 <router-link to="/about" class="nav-link">品牌介紹</router-link>
               </li>
               <li>
-                <router-link to="/products" class="nav-link">產品列表</router-link>
+                <router-link to="/products" class="nav-link">商品列表</router-link>
               </li>
             </ul>
             <ul class="icon">
@@ -42,15 +39,16 @@
         </nav>
       </div>
     </header>
-    <router-view :cart="cart"></router-view>
+    <router-view :cart="cart" :scrollTop="scrollTop"></router-view>
     <footer class="p-3">
-      <p class="text-center m-auto">ⓒ 2020 HBakery by Daisy 此網站圖片皆為為練習使用，不具有商業行為</p>
+      <p class="text-center m-auto">ⓒ 2020 HBakery by Daisy 此網站圖片與文案皆為為練習使用，不具有商業行為</p>
     </footer>
   </div>
 </template>
 
 <script>
 /* global $  */
+/* global Swal  */
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue';
 
@@ -70,28 +68,47 @@ export default {
     toogleMenu() {
       $('.menu-list').slideToggle();
     },
+    activeMenu(activeIdx) {
+      // header 主選單判斷選中項目
+      const menu = document.querySelector('.menu-list');
+      menu.querySelectorAll('li').forEach((item, idx) => {
+        item.classList.remove('active');
+        if (idx === activeIdx) {
+          item.classList.add('active');
+        }
+      });
+    },
     addCart(id, quantity = 1) {
-      this.isLoading = true;
       const api = `${process.env.VUE_APP_APIPATH}/${process.env.VUE_APP_UUID}/ec/shopping`;
       const cart = {
         product: id,
         quantity,
       };
-      this.$http.post(api, cart).then(() => {
+      this.$http.post(api, cart).then((res) => {
+        const productTitle = res.data.data.product.title;
         this.getCart();
-      }).catch(() => {
-        this.isLoading = false;
+        this.$bus.$emit('clear-loading-pdt-item');
+        Swal.fire({
+          title: `「${productTitle}」已加入購物車`,
+          icon: 'success',
+        });
+      }).catch((err) => {
+        this.$bus.$emit('clear-loading-pdt-item');
+        Swal.fire({
+          title: err.response.data.errors,
+          icon: 'warning',
+        });
       });
     },
     getCart() {
-      this.isLoading = true;
+      // this.isLoading = true;
       const api = `${process.env.VUE_APP_APIPATH}/${process.env.VUE_APP_UUID}/ec/shopping`;
       this.$http.get(api).then((res) => {
         this.cart = res.data.data;
         this.cartLen = res.data.data.length;
         this.isLoading = false;
       }).catch(() => {
-        this.isLoading = false;
+        // this.isLoading = false;
       });
     },
   },
@@ -99,8 +116,12 @@ export default {
     this.getCart();
     // 監聽 scoll 位置
     window.addEventListener('scroll', () => {
-      // console.log(document.body.scrollTop);
       this.scrollTop = window.pageYOffset;
+    });
+
+    // event bus 接收各個項目子元件傳遞之選單項目順序
+    this.$bus.$on('active-menu', (idx) => {
+      this.activeMenu(idx);
     });
 
     this.$bus.$on('index-header-ctrl', (isHome) => {
@@ -111,8 +132,8 @@ export default {
       this.getCart();
     });
 
-    this.$bus.$on('add-to-cart', (id) => {
-      this.addCart(id);
+    this.$bus.$on('add-to-cart', (product) => {
+      this.addCart(product.id, product.quantity);
     });
   },
 };

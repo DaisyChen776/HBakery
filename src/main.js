@@ -3,7 +3,6 @@ import VueAxios from 'vue-axios';
 import axios from 'axios';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
-// import VeeValidate from 'vee-validate';
 import {
   ValidationProvider, ValidationObserver, extend, localize, configure,
 } from 'vee-validate';
@@ -12,6 +11,8 @@ import TW from 'vee-validate/dist/locale/zh_TW.json';
 import $ from 'jquery';
 import Quill from 'quill';
 import 'bootstrap';
+import Swal from 'sweetalert2';
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
 import Pagination from '@/components/Pagination.vue';
 import App from './App.vue';
 import router from './router';
@@ -40,6 +41,19 @@ configure({
 });
 Vue.component('ValidationProvider', ValidationProvider);
 Vue.component('ValidationObserver', ValidationObserver);
+
+// sweetalert2 設定
+window.Swal = Swal.mixin({
+  toast: true,
+  showConfirmButton: false,
+  timer: 2000,
+  padding: '1em',
+  position: 'center',
+});
+
+// Swiper 輪播外掛
+Vue.component('Swiper', Swiper);
+Vue.component('SwiperSlide', SwiperSlide);
 
 // 頁碼區塊設定
 Vue.component('Pagination', Pagination);

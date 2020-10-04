@@ -5,12 +5,13 @@
       <span>產品</span>
     </h2>
     <div class="container">
-      <div class="categorys mb-5">
+      <div class="categorys">
         <ul>
-          <li class="active">
+          <li :class="activeCategory === '' ? 'active' : ''" >
             <a href="#" @click.prevent="activeCategory = ''">全部</a>
           </li>
-          <li v-for="(category, idx) in categorys" :key="idx">
+          <li v-for="(category, idx) in categorys" :key="idx"
+            :class="activeCategory === category ? 'active' : ''">
             <a href="#" @click.prevent="activeCategory = category">{{ category }}</a>
           </li>
         </ul>
@@ -25,14 +26,15 @@
           <div class="info pt-2">
             <h4 class="text-primary font-weight-bold">{{ item.title }}</h4>
             <div class="price-box">
-              <p class="origin">售價：{{ item.origin_price }}</p>
-              <p class="price">特價：{{ item.price }}</p>
+              <p class="origin">NT$：{{ item.origin_price }}</p>
+              <p class="price">NT$：{{ item.price }}</p>
             </div>
             <div class="d-flex">
               <button type="button" class="btn"
                 :title="`${item.title} 放入購物車`"
                 @click="addCart(item.id)">
-                <i class="fas fa-shopping-cart"></i>
+                <i class="fas fa-spinner fa-spin" v-if="loadingPdtItem === item.id"></i>
+                <i class="fas fa-shopping-cart" v-else></i>
                 放入購物車
               </button>
               <router-link :to="`/product/${item.id}`" class="btn"
@@ -57,6 +59,7 @@ export default {
       activeCategory: '',
       pagination: {},
       isLoading: false,
+      loadingPdtItem: '',
     };
   },
   methods: {
@@ -77,7 +80,12 @@ export default {
       });
     },
     addCart(id) {
-      this.$bus.$emit('add-to-cart', id);
+      if (this.loadingPdtItem !== '') return;
+      this.loadingPdtItem = id;
+      this.$bus.$emit('add-to-cart', {
+        id,
+        quantity: 1,
+      });
     },
   },
   computed: {
@@ -93,8 +101,12 @@ export default {
   },
   created() {
     this.getProducts();
+    this.$bus.$on('clear-loading-pdt-item', () => {
+      this.loadingPdtItem = '';
+    });
   },
   mounted() {
+    this.$bus.$emit('active-menu', 1);
     this.$bus.$emit('index-header-ctrl', false);
   },
 };

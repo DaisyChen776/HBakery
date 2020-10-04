@@ -1,5 +1,26 @@
 //------------------------------ 前台樣式 RWD
 .front {
+  @media only screen and (max-width: 1024px) {
+    .index-contact {
+      .contact {
+        padding: 3rem 0 3rem 38%;
+        overflow: hidden;
+        position: relative;
+
+        h2.title {
+          margin-bottom: 35px;
+        }
+        p {
+          margin-bottom: 5px;
+        }
+        &::before {
+          top: 42px;
+          background-size: 35% auto;
+        }
+      }
+    }
+  }
+
   @media only screen and (max-width: 992px) {
     .index-banner {
       .container {
@@ -43,40 +64,6 @@
       padding: 50px 0;
     }
 
-    .index-contact {
-      height: auto;
-      padding: 50px 0;
-
-      .contact {
-        padding: 30px 45px;
-        
-        form {
-          text-align: center;
-          display: block;
-        }
-        .fill-form {
-          width: 100%;
-          padding: 0;
-
-          &+.fill-form {
-            border: none;
-          }
-        }
-        .fill {
-          label {
-            text-align: left;
-          }
-        }
-        .sentence {
-          text-align: left;
-          margin-top: 20px;
-        }
-        button {
-          margin-top: 0;
-        }
-      }
-    }
-
     //----- 購物車
     .cart {
       .amout {
@@ -90,8 +77,86 @@
       margin-bottom: 35px;
     }
 
+    .index-coupon {
+      padding: 50px 0;
+
+      .coupon-wrap {
+        .coupon {
+          .cover {
+            .topic {
+              span {
+                font-size: 1.5rem;
+              }
+              .icon {
+                i {
+                  font-size: 1rem;
+                }
+              }
+            }
+          }
+          .discount {
+            p {
+              font-size: 1rem;
+            }
+            .title {
+              font-size: 1.2rem;
+            }
+            .code {
+              font-size: 1.5rem;
+              padding: 2px 15px;
+              margin-top: 10px;
+            }
+          }
+        }
+      }
+    }
+
     .index-about {
       padding: 50px 0;
+    }
+
+    .index-products {
+      .box {
+        .info {
+          padding: 5px 10px;
+
+          p {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+
+    .index-contact {
+      .contact {
+        padding: 3rem 0;
+
+        p {
+          margin-bottom: 5px;
+        }
+        &::before {
+          display: none;
+        }
+      }
+    }
+
+    //----- 品牌介紹
+    .about {
+      .about-des {
+        align-items: center;
+
+        &+.about-des {
+          margin-top: 25px;
+        }
+        &:last-child {
+          margin-bottom: 25px;
+        }
+      }
+      .about-img {
+        width: 200px;
+        height: 250px;
+        top: 0 !important;
+      }
     }
   }
 
@@ -145,8 +210,16 @@
               }
             }
             .cart-items {
-              left: 35px;
+              top: 5px;
+              left: 38px;
             }
+          }
+        }
+      }
+      &.index-header-top {
+        nav {
+          ul.menu-list {
+            background: rgba($color: #000, $alpha: .6);
           }
         }
       }
@@ -165,10 +238,142 @@
       }
     }
 
+    .index-coupon {
+      .promotions {
+        margin-bottom: 10px;
+      }
+      .coupon-wrap {
+        height: 120px;
+        margin: 5px 0;
+
+        .coupon {
+          left: 0 !important;
+
+          .cover {  
+            flex-direction: column;
+
+            .topic {
+              width: 100%;
+              border: none;
+              border-bottom: 1px dashed #dfff;
+            }
+            .lucky {
+              width: 100%;
+              padding: 5px 0;
+              writing-mode: inherit;
+            }
+          }
+        }
+      }
+      .active {
+        .coupon-wrap {
+          height: 160px;
+
+          .coupon {
+            width: 100%;
+            height: 100%;
+            top: 0;
+          }
+        }
+      }
+      .no-active {
+        .coupon-wrap {
+          .coupon {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .index-about {
+      img {
+        display: block;
+        margin: 0 auto;
+        box-shadow: none;
+        
+        &.top {
+          margin-bottom: 20px;
+
+          &.slide {
+            top: 0;
+          }
+        }
+        &.bottom {
+          &.slide {
+            bottom: 0;
+          }
+        }
+      }
+    }
+
+    .index-products {
+      .box {
+        width: 100%;
+        margin-top: 10px;
+
+        .info {
+          padding: 5px 20px;
+
+          p {
+            font-size: 1.2rem;
+          }
+        }
+        &:nth-of-type(n+3) {
+          display: none;
+        }
+      }
+    }
+
+    .index-contact {
+      .contact {
+        padding: 1.5rem 0 0;
+      }
+    }
+
     //----- 品牌介紹
     .about {
-      article {
-        width: 100%;
+      h3 {
+        font-size: calc(1.325rem + 0.9vw);
+      }
+      .about-des {
+        display: block;
+        background: none !important;
+
+        &+.about-des {
+          margin-top: 25px;
+        }
+        &:last-child {
+          margin-bottom: 25px;
+        }
+      }
+      .about-text {
+        padding: 1rem 1.5rem !important;
+        background-color: #dde7df;
+
+        p {
+          font-size: 1rem;
+        }
+      }
+      .about-img {
+        width: 100% !important;
+        height: 90vw;
+        top: 0 !important;
+        left: 0 !important;
+      }
+    }
+
+    //----- 產品列表
+    .products {
+      .categorys {
+        margin-bottom: 10px;
+
+        ul {
+          li {
+            a {
+              padding: 0 12px;
+            }
+          }
+        }
       }
     }
   }
@@ -190,6 +395,15 @@
               padding: 0.5rem 1rem;
             }
           }
+          &.icon {
+            .menu-toogle {
+              padding-right: 5px;
+              margin-right: 5px;
+            }
+            .cart-items {
+              left: 30px;
+            }
+          }
         }
       }
 
@@ -201,19 +415,25 @@
     }
 
     h2.title {
-      margin-bottom: 25px;
+      margin-bottom: 20px;
 
       &.title-page {
-        padding: 95px 0 45px;
+        padding: 95px 0 35px;
       }
     }
 
     .index-banner {
       .container {
         section {
-          padding: 20px;
+          padding: 15px 15px 20px;
+
+          img {
+            max-width: 85%;
+          }
           p {
-            font-size: 1.2rem;
+            font-size: 1rem;
+            padding: 15px 0 0 0;
+            margin: 15px 0 0;
           }
         }
       }
@@ -236,12 +456,87 @@
         }
       }
     }
+
+    .index-products {
+      .box {
+        .info {
+          padding: 5px 10px;
+
+          p {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+
+    //----- 產品列表
+    .products {
+      .categorys {
+        ul {
+          display: flex;
+          flex-wrap: wrap;
+
+          li {
+            width: calc(100% / 3);
+            margin-bottom: 10px;
+
+            a {
+              font-size: 1.2rem;
+              padding: 0 5px;
+            }
+            &:nth-of-type(3n+1) {
+              &::before {
+                display: none;
+              }
+            }
+            &.active {
+              a {
+                font-size: 1.3rem;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   @media only screen and (max-width: 320px) {
     header {
       h1 {
         width: 35%;
+      }
+    }
+
+    .index-banner {
+      .container {
+        section {
+          padding: 10px 8px 15px;
+
+          p {
+            padding: 12px 0 0 0;
+            margin: 12px 0 0;
+          }
+        }
+      }
+    }
+
+    .index-products {
+      .box {
+        display: block;
+        .cover {
+          width: 100%;
+        }
+        .info {
+          width: 100%;
+          
+          p {
+            font-size: 1.2rem;
+            padding: 10px 0;
+          }
+          div {
+            padding: 20px 0 10px;
+          }
+        }
       }
     }
   }

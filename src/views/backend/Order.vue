@@ -32,7 +32,6 @@ export default {
       this.$http.get(api).then((res) => {
         this.isLoading = false;
         this.order = res.data.data;
-        console.log(this.order);
       }).catch(() => {
         this.isLoading = false;
       });

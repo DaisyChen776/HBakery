@@ -3,7 +3,7 @@
     <div class="container">
       <Loading :active.sync="isLoading"></Loading>
       <h1 class="h3 mb-3 text-center">
-        <img src="@/assets/img/logo.png" alt="Healthy bakery logo" />
+        <img class="img-fluid" src="@/assets/img/logo.png" alt="Healthy bakery logo" />
       </h1>
       <form class="login-form">
         <div class="form-group">

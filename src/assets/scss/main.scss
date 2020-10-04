@@ -2,6 +2,9 @@
 @import '~bootstrap/scss/mixins'; // 官方(node_modules)
 @import './variables'; // 客製化 bootstrap 變數
 @import '~bootstrap';
+@import '~sweetalert2/src/sweetalert2';
+@import '~swiper/swiper';
+@import '~swiper/components/navigation/navigation';
 @import './front';
 @import './front-rwd';
 @import '~quill/dist/quill.snow.css';
