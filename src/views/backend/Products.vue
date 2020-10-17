@@ -58,7 +58,7 @@
 
 <script>
 /* global $  */
-import ProductModal from '@/components/ProductModal.vue';
+import ProductModal from '@/components/backend/ProductModal.vue';
 
 export default {
   data() {
@@ -76,7 +76,6 @@ export default {
   components: {
     ProductModal,
   },
-  // props: ['token'],
   methods: {
     getProducts(page = 1) {
       this.isLoading = true;
@@ -112,9 +111,6 @@ export default {
   },
   created() {
     this.getProducts();
-  },
-  mounted() {
-    this.$bus.$emit('active-menu', 0);
   },
 };
 </script>

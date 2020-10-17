@@ -27,11 +27,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-
-    };
-  },
   props: {
     pages: {},
   },
@@ -39,8 +34,6 @@ export default {
     pageCounting(item) {
       this.$emit('page-counting', item);
     },
-  },
-  created() {
   },
 };
 </script>

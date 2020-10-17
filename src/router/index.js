@@ -6,10 +6,10 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    component: () => import('../views/front/Layout.vue'),
+    component: () => import('../views/layout/Layout.vue'),
     children: [
       {
-        path: '/home',
+        path: '/',
         component: () => import('../views/front/Home.vue'),
       },
       {
@@ -25,8 +25,16 @@ const routes = [
         component: () => import('../views/front/Product.vue'),
       },
       {
+        path: '/favorite',
+        component: () => import('../views/front/Favorite.vue'),
+      },
+      {
         path: '/cart',
         component: () => import('../views/front/Cart.vue'),
+      },
+      { // 動態路由
+        path: '/order/:id',
+        component: () => import('../views/front/Order.vue'),
       },
     ],
   },
@@ -60,10 +68,16 @@ const routes = [
       },
     ],
   },
+  // 當使用者輸入不存在的路徑時，會自動導向至指定路徑
+  {
+    path: '*',
+    redirect: '/',
+  },
 ];
 
 const router = new VueRouter({
   routes,
+  linkExactActiveClass: 'active',
 });
 
 export default router;

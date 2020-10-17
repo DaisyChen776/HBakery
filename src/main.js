@@ -12,13 +12,14 @@ import $ from 'jquery';
 import Quill from 'quill';
 import 'bootstrap';
 import Swal from 'sweetalert2';
-import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
 import Pagination from '@/components/Pagination.vue';
 import App from './App.vue';
 import router from './router';
 
 Vue.config.productionTip = false;
-Vue.prototype.$bus = new Vue(); // event bus
+
+// event bus
+Vue.prototype.$bus = new Vue();
 
 // axios 設定
 Vue.use(VueAxios, axios);
@@ -51,12 +52,15 @@ window.Swal = Swal.mixin({
   position: 'center',
 });
 
-// Swiper 輪播外掛
-Vue.component('Swiper', Swiper);
-Vue.component('SwiperSlide', SwiperSlide);
-
 // 頁碼區塊設定
 Vue.component('Pagination', Pagination);
+
+// 金錢千分號
+Vue.filter('money', (num = 0) => {
+  const parts = num.toString().split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return `NT$ ${parts.join('.')}`;
+});
 
 // jQuery
 window.$ = $;

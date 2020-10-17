@@ -68,9 +68,9 @@ export default {
       this.isLoading = true;
       const api = `${process.env.VUE_APP_APIPATH}/${process.env.VUE_APP_UUID}/admin/storage?page=${page}&paged=5`;
       this.$http.get(api).then((res) => {
-        this.isLoading = false;
         this.images = res.data.data;
         this.pagination = res.data.meta.pagination;
+        this.isLoading = false;
       }).catch(() => {
         this.isLoading = false;
       });
@@ -92,11 +92,7 @@ export default {
     },
   },
   created() {
-    this.$emit('active');
     this.getImages();
-  },
-  mounted() {
-    this.$bus.$emit('active-menu', 3);
   },
 };
 </script>

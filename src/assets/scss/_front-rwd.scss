@@ -1,542 +1,679 @@
 //------------------------------ 前台樣式 RWD
-.front {
-  @media only screen and (max-width: 1024px) {
-    .index-contact {
-      .contact {
-        padding: 3rem 0 3rem 38%;
-        overflow: hidden;
-        position: relative;
+@media only screen and (max-width: 1024px) {
+  //----- 頁尾
+  .footer-contact {
+    .contact {
+      padding: 3rem 0 3rem 38%;
+      overflow: hidden;
+      position: relative;
 
-        h2.title {
-          margin-bottom: 35px;
-        }
-        p {
-          margin-bottom: 5px;
-        }
-        &::before {
-          top: 42px;
-          background-size: 35% auto;
-        }
+      h2.title {
+        margin-bottom: 35px;
+      }
+      p {
+        margin-bottom: 5px;
+      }
+      &::before {
+        top: 42px;
+        background-size: 35% auto;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .index-banner {
+    section {
+      width: 90%;
+      img {
+        max-width: 95%;
       }
     }
   }
 
-  @media only screen and (max-width: 992px) {
-    .index-banner {
-      .container {
-        section {
-          width: 90%;
-          img {
-            max-width: 95%;
-          }
-        }
+  .index-about {
+    h2.title {
+      font-size: 1.5rem;
+      margin-bottom: 25px;
+      
+      span {
+        font-weight: 500;
       }
     }
 
-    .index-about {
-      .about-text {
-        width: 100%;
-        padding: 1rem;
-        margin-bottom: 20px;
-        
-        h2.title {
+    .about-text {
+      width: 100%;
+      padding: 1rem;
+      margin-bottom: 20px;
+      
+      p.h5 {
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+    }
+
+    img.top,
+    img.bottom {
+      top: auto;
+      bottom: auto;
+    }
+  }
+
+  .index-products  {
+    padding: 50px 0;
+  }
+
+  //----- 購物車
+  .cart {
+    .amout {
+      margin-top: 20px;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  h2.title {
+    margin-bottom: 35px;
+  }
+
+  .index-coupon {
+    padding: 50px 0;
+
+    .cover {
+      .topic {
+        span {
           font-size: 1.5rem;
-          margin-bottom: 25px;
-          span {
-            font-weight: 500;
+        }
+        .icon {
+          i {
+            font-size: 1rem;
           }
         }
-        p.h5 {
-          font-size: 1rem;
-          line-height: 1.6;
-        }
       }
-      img {
-        &.top,
-        &.bottom {
-          top: auto;
-          bottom: auto;
-        }
+    }
+    
+    .discount {
+      p {
+        font-size: 1rem;
+      }
+      .title {
+        font-size: 1.2rem;
+      }
+      .code {
+        font-size: 1.5rem;
+        padding: 2px 15px;
+        margin-top: 10px;
+      }
+    }
+  }
+
+  .index-about {
+    padding: 50px 0;
+  }
+
+  .index-products {
+    .info {
+      p {
+        font-size: 1.2rem;
+      }
+
+      .content {
+        font-size: 1rem;
       }
     }
 
-    .index-products  {
-      padding: 50px 0;
+    .btn-box .btn {
+      font-size: 1rem;
+      padding: 0 0.5rem;
     }
 
-    //----- 購物車
-    .cart {
-      .amout {
+    .btn-box .btn+.btn {
+      padding-left: calc(0.5rem + 5px);
+    }
+  }
+
+  .index-products.hot {
+    .info {
+      border-width: 45px;
+    }
+  }
+  
+  .index-products.new {
+    .btn-box .btn {
+      padding: 0 0.2rem;
+    }
+
+    .btn-box .btn+.btn {
+      padding-left: calc(0.2rem + 5px);
+    }
+  }
+
+  //----- 品牌介紹
+  .about {
+    .about-des {
+      align-items: center;
+
+      &+.about-des {
+        margin-top: 25px;
+      }
+      &:last-child {
+        margin-bottom: 25px;
+      }
+    }
+    .about-img {
+      width: 200px;
+      height: 250px;
+      top: 0 !important;
+    }
+  }
+
+  //----- 頁尾
+  .footer-contact {
+    .contact {
+      padding: 3rem 0;
+
+      &::before {
+        display: none;
+      }
+    }
+
+    p {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  header {
+    nav {
+      &>div {
+        display: block;
+      }
+
+      ul {
+        a {
+          font-size: 1.5rem;
+          padding: 0.5rem 1.2rem;
+        }
+      }
+
+      ul.menu-list {
+        display: none;
+        width: 100%;
+        background-color: #fffefd;
+        box-shadow: 1px 1px 5px #aeaeae;
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+
+        li {
+          display: block;
+        }
+
+        li+li::after {
+          // border-top: 2px solid #e7dddc;
+          content: '';
+          width: calc(100% - 1.8rem);
+          height: 2px;
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0.9rem;
+          background-color: #ebe8e7;
+        }
+
+        a {
+          text-align: center;
+          padding: 0.8rem 1rem;
+        }
+
+        .active {
+          color: #c94747;
+          font-weight: bold;
+        }
+
+        .active::after {
+          display: none;
+        }
+      }
+
+      ul.icon::before {
+        display: none;
+      }
+
+      .menu-toogle {
+        padding-right: 10px;
+        margin-right: 10px;
+        display: inline-block;
+        transition: .3s all ease;
+
+        &::before {
+          content: '';
+          width: 2px ;
+          height: 50%;
+          background-color: #e3e3e3;
+          position: absolute;
+          top:25%;
+          right: 0;
+        }
+      }
+
+      .cart-items {
+        top: 5px;
+        left: 38px;
+      }
+    }
+  }
+
+  header.index-header-top {
+    nav {
+      ul.menu-list {
+        background: rgba($color: #000, $alpha: .6);
+      }
+    }
+  }
+
+  h2.title {
+    &.title-page {
+      padding: 125px 0 50px;
+    }
+  }
+
+  .index-banner {
+    section {
+      width: 95%;
+      padding: 30px;
+
+      p {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .index-coupon {
+    .promotions {
+      margin-bottom: 10px;
+    }
+    
+    .coupon-wrap {
+      height: 120px;
+      margin: 5px 0;
+    }
+
+    .coupon {
+      left: 0 !important;
+    }
+
+    .cover {  
+      flex-direction: column;
+
+      .topic {
+        width: 100%;
+        border: none;
+        border-bottom: 1px dashed #dfff;
+      }
+      .lucky {
+        width: 100%;
+        padding: 5px 0;
+        writing-mode: inherit;
+      }
+    }
+
+    .active {
+      .coupon-wrap {
+        height: 160px;
+      }
+
+      .coupon {
+        width: 100%;
+        height: 100%;
+        top: 0;
+      }
+    }
+
+    .no-active {
+      .coupon {
+        width: 100%;
+      }
+    }
+  }
+
+  .index-about {
+    img {
+      display: block;
+      margin: 0 auto;
+      box-shadow: none;
+    }
+
+    img.top {
+      margin-bottom: 20px;
+
+      &.slide {
+        top: 0;
+      }
+    }
+  
+    img.bottom {
+      &.slide {
+        bottom: 0;
+      }
+    }
+  }
+
+  .index-products.hot,
+  .index-products.new {
+    .btn-box .btn {
+      font-size: 1rem;
+      padding: 0 0.5rem;
+    }
+
+    .btn-box .btn+.btn {
+      padding-left: calc(0.5rem + 5px);
+    }
+  }
+
+  .index-products.hot {
+    .products-box+.products-box {
+      margin-top: 40px;
+    }
+
+    .cover {
+      width: 100%;
+    }
+
+    .info {
+      width: 100%;
+      padding: 25px 0;
+      border: 0;
+      margin: 0 auto;
+      position: relative;
+      top: 10px;
+
+      .content {
+        margin: 20px 0 30px;
+      }
+    }
+  }
+  
+  .index-products.new {
+    padding-bottom: 30px;
+
+    .products-box {
+      margin-top: 0;
+    }
+
+    .info {
+      width: 96%;
+    }
+
+    .row > div:first-child {
+      .products-box {
         margin-top: 20px;
       }
     }
   }
 
-  @media only screen and (max-width: 768px) {
-    h2.title {
-      margin-bottom: 35px;
+  //----- 品牌介紹
+  .about {
+    h3 {
+      font-size: calc(1.325rem + 0.9vw);
     }
 
-    .index-coupon {
-      padding: 50px 0;
+    .about-des {
+      display: block;
+      background: none !important;
 
-      .coupon-wrap {
-        .coupon {
-          .cover {
-            .topic {
-              span {
-                font-size: 1.5rem;
-              }
-              .icon {
-                i {
-                  font-size: 1rem;
-                }
-              }
-            }
-          }
-          .discount {
-            p {
-              font-size: 1rem;
-            }
-            .title {
-              font-size: 1.2rem;
-            }
-            .code {
-              font-size: 1.5rem;
-              padding: 2px 15px;
-              margin-top: 10px;
-            }
-          }
-        }
+      &+.about-des {
+        margin-top: 25px;
+      }
+      &:last-child {
+        margin-bottom: 25px;
       }
     }
 
-    .index-about {
-      padding: 50px 0;
-    }
+    .about-text {
+      padding: 1rem 1.5rem !important;
+      background-color: #dde7df;
 
-    .index-products {
-      .box {
-        .info {
-          padding: 5px 10px;
-
-          p {
-            font-size: 1rem;
-          }
-        }
+      p {
+        font-size: 1rem;
       }
     }
 
-    .index-contact {
-      .contact {
-        padding: 3rem 0;
-
-        p {
-          margin-bottom: 5px;
-        }
-        &::before {
-          display: none;
-        }
-      }
+    .about-img {
+      width: 100% !important;
+      height: 90vw;
+      top: 0 !important;
+      left: 0 !important;
     }
+  }
 
-    //----- 品牌介紹
-    .about {
-      .about-des {
-        align-items: center;
+  //----- 產品列表
+  .products {
+    .categorys {
+      margin-bottom: 10px;
 
-        &+.about-des {
-          margin-top: 25px;
+      ul {
+        a {
+          padding: 0 12px;
         }
-        &:last-child {
-          margin-bottom: 25px;
-        }
-      }
-      .about-img {
-        width: 200px;
-        height: 250px;
-        top: 0 !important;
       }
     }
   }
 
-  @media only screen and (max-width: 767px) {
-    header {
-      nav {
-        &>div {
-          display: block;
-        }
-        ul {
-          li {
-            a {
-              font-size: 1.5rem;
-              padding: 0.5rem 1.2rem;
-            }
-          }
-          &.menu-list {
-            display: none;
-            width: 100%;
-            background-color: #fffefd;
-            box-shadow: 1px 1px 5px #aeaeae;
-            position: absolute;
-            top: calc(100% + 5px);
-            left: 0;
+  //----- 我的收藏
+  .favorite-products {
+    .list {
+      padding: 0;
+    }
+  }
 
-            li {
-              display: block;
+  //----- 購物車
+  .cart {
+    .step {
+      margin-bottom: 1rem;
 
-              a {
-                text-align: center;
-              }
-            }
-          }
-          &.icon {
-            &::before {
-              display: none;
-            }
-            .menu-toogle {
-              padding-right: 10px;
-              margin-right: 10px;
-              display: inline-block;
-
-              &::before {
-                content: '';
-                width: 2px ;
-                height: 50%;
-                background-color: #e3e3e3;
-                position: absolute;
-                top:25%;
-                right: 0;
-              }
-            }
-            .cart-items {
-              top: 5px;
-              left: 38px;
-            }
-          }
-        }
+      &>div {
+        width: 110px;
       }
-      &.index-header-top {
-        nav {
-          ul.menu-list {
-            background: rgba($color: #000, $alpha: .6);
-          }
-        }
+
+      span {
+        width: 30px;
+        height: 30px;
+        line-height: 31px;
+        font-size: 1rem;
+        margin-bottom: 5px;
+      }
+
+      p {
+        font-size: 0.875rem;
+      }
+
+      &>div:nth-of-type(n+2) span::before {
+        width: 76px;
+        height: 2px;
+        top: 15px;
+        left: -78px;
       }
     }
+  }
 
-    .index-banner {
-      .container {
-        section {
-          width: 95%;
-          padding: 30px;
-
-          p {
-            font-size: 1.5rem;
-          }
-        }
-      }
+  //----- 頁尾
+  .footer-contact {
+    .contact {
+      padding: 1.5rem 0 0;
     }
+  }
+}
 
-    .index-coupon {
-      .promotions {
-        margin-bottom: 10px;
-      }
-      .coupon-wrap {
-        height: 120px;
-        margin: 5px 0;
-
-        .coupon {
-          left: 0 !important;
-
-          .cover {  
-            flex-direction: column;
-
-            .topic {
-              width: 100%;
-              border: none;
-              border-bottom: 1px dashed #dfff;
-            }
-            .lucky {
-              width: 100%;
-              padding: 5px 0;
-              writing-mode: inherit;
-            }
-          }
-        }
-      }
-      .active {
-        .coupon-wrap {
-          height: 160px;
-
-          .coupon {
-            width: 100%;
-            height: 100%;
-            top: 0;
-          }
-        }
-      }
-      .no-active {
-        .coupon-wrap {
-          .coupon {
-            width: 100%;
-          }
-        }
-      }
-    }
-
-    .index-about {
+@media only screen and (max-width: 480px) {
+  header {
+    h1 {
+      width: 40%;
       img {
-        display: block;
-        margin: 0 auto;
-        box-shadow: none;
-        
-        &.top {
-          margin-bottom: 20px;
-
-          &.slide {
-            top: 0;
-          }
-        }
-        &.bottom {
-          &.slide {
-            bottom: 0;
-          }
-        }
+        width: 100%;
       }
     }
 
-    .index-products {
-      .box {
-        width: 100%;
-        margin-top: 10px;
-
-        .info {
-          padding: 5px 20px;
-
-          p {
-            font-size: 1.2rem;
-          }
+    nav {
+      ul {
+        a {
+          font-size: 1.2rem;
+          padding: 0.5rem 1rem;
         }
-        &:nth-of-type(n+3) {
+      }
+
+      .menu-toogle {
+        padding-right: 5px;
+        margin-right: 5px;
+      }
+
+      .cart-items {
+        left: 30px;
+      }
+    }
+  }
+
+  header.index-header-top {
+    h1 {
+      width: auto;
+    }
+  }
+
+  h2.title {
+    margin-bottom: 20px;
+
+    &.title-page {
+      padding: 95px 0 35px;
+    }
+  }
+
+  .index-banner {
+    section {
+      padding: 15px 15px 20px;
+
+      img {
+        max-width: 85%;
+      }
+
+      p {
+        font-size: 1rem;
+        padding: 15px 0 0 0;
+        margin: 15px 0 0;
+      }
+    }
+  }
+
+  .index-products {
+    .info {
+      padding: 5px 10px;
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  //----- 產品列表
+  .products {
+    .categorys {
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+
+        li {
+          width: calc(100% / 3);
+          margin-bottom: 10px;
+        }
+
+        li:nth-of-type(3n+1)::before {
           display: none;
         }
-      }
-    }
 
-    .index-contact {
-      .contact {
-        padding: 1.5rem 0 0;
-      }
-    }
-
-    //----- 品牌介紹
-    .about {
-      h3 {
-        font-size: calc(1.325rem + 0.9vw);
-      }
-      .about-des {
-        display: block;
-        background: none !important;
-
-        &+.about-des {
-          margin-top: 25px;
+        a {
+          font-size: 1.2rem;
+          padding: 0 5px;
         }
-        &:last-child {
-          margin-bottom: 25px;
-        }
-      }
-      .about-text {
-        padding: 1rem 1.5rem !important;
-        background-color: #dde7df;
 
-        p {
-          font-size: 1rem;
-        }
-      }
-      .about-img {
-        width: 100% !important;
-        height: 90vw;
-        top: 0 !important;
-        left: 0 !important;
-      }
-    }
-
-    //----- 產品列表
-    .products {
-      .categorys {
-        margin-bottom: 10px;
-
-        ul {
-          li {
-            a {
-              padding: 0 12px;
-            }
-          }
+        .active a {
+          font-size: 1.3rem;
         }
       }
     }
   }
+}
 
-  @media only screen and (max-width: 480px) {
-    header {
-      h1 {
-        width: 40%;
-        img {
-          width: 100%;
-        }
-      }
-
-      nav {
-        ul {
-          li {
-            a {
-              font-size: 1.2rem;
-              padding: 0.5rem 1rem;
-            }
-          }
-          &.icon {
-            .menu-toogle {
-              padding-right: 5px;
-              margin-right: 5px;
-            }
-            .cart-items {
-              left: 30px;
-            }
-          }
-        }
-      }
-
-      &.index-header-top {
-        h1 {
-          width: auto;
-        }
-      }
+@media only screen and (max-width: 320px) {
+  header {
+    h1 {
+      width: 35%;
     }
+  }
 
-    h2.title {
-      margin-bottom: 20px;
+  .index-banner {
+    section {
+      padding: 10px 8px 15px;
 
-      &.title-page {
-        padding: 95px 0 35px;
-      }
-    }
-
-    .index-banner {
-      .container {
-        section {
-          padding: 15px 15px 20px;
-
-          img {
-            max-width: 85%;
-          }
-          p {
-            font-size: 1rem;
-            padding: 15px 0 0 0;
-            margin: 15px 0 0;
-          }
-        }
-      }
-    }
-
-    .index-contact {
-      .contact {
-        padding: 30px;
-
-        .fill {
-          display: block;
-          text-align: left;
-
-          label {
-            width: auto;
-          }
-          input {
-            width: 100%;
-          }
-        }
-      }
-    }
-
-    .index-products {
-      .box {
-        .info {
-          padding: 5px 10px;
-
-          p {
-            font-size: 1rem;
-          }
-        }
-      }
-    }
-
-    //----- 產品列表
-    .products {
-      .categorys {
-        ul {
-          display: flex;
-          flex-wrap: wrap;
-
-          li {
-            width: calc(100% / 3);
-            margin-bottom: 10px;
-
-            a {
-              font-size: 1.2rem;
-              padding: 0 5px;
-            }
-            &:nth-of-type(3n+1) {
-              &::before {
-                display: none;
-              }
-            }
-            &.active {
-              a {
-                font-size: 1.3rem;
-              }
-            }
-          }
-        }
+      p {
+        padding: 12px 0 0 0;
+        margin: 12px 0 0;
       }
     }
   }
 
-  @media only screen and (max-width: 320px) {
-    header {
-      h1 {
-        width: 35%;
-      }
+  .index-products.hot,
+  .index-products.new {
+    .btn-box {
+      padding: 2px 0;
     }
 
-    .index-banner {
-      .container {
-        section {
-          padding: 10px 8px 15px;
-
-          p {
-            padding: 12px 0 0 0;
-            margin: 12px 0 0;
-          }
-        }
-      }
+    .btn-box .btn {
+      width: 100%;
+      text-align: center;
+      display: block;
+      padding: 10px 0 8px !important;
     }
 
-    .index-products {
-      .box {
-        display: block;
-        .cover {
-          width: 100%;
-        }
-        .info {
-          width: 100%;
-          
-          p {
-            font-size: 1.2rem;
-            padding: 10px 0;
-          }
-          div {
-            padding: 20px 0 10px;
-          }
-        }
+    .btn-box .btn+.btn::before {
+      width: 90%;
+      height: 2px;
+      top: 0;
+      left: 5%;
+    }
+  }
+
+  .index-products.hot {
+    .info {
+      padding-bottom: 10px;
+    }
+
+    .btn-box {
+      margin-top: 20px;
+      position: relative;
+    }
+  }
+
+  .index-products.new {
+    .info {
+      padding-bottom: 0;
+    }
+
+    .btn-box {
+      margin-top: 20px;
+      position: relative;
+    }
+  }
+
+  //----- 購物車
+  .cart {
+    .step {
+      &>div {
+        width: 96px;
+      }
+
+      &>div:nth-of-type(n+2) span::before {
+        width: 62px;
+        left: -64px;
       }
     }
   }

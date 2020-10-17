@@ -3,19 +3,34 @@
     <Loading :active.sync="isLoading"></Loading>
     <div class="container">
       <div class="row">
-        <!-- <div class="col-lg-12">
-          首頁 &gt; 全部商品 &gt; {{ product.title }}
-        </div> -->
+        <div class="col-lg-12">
+          <div class="path">
+            <router-link to="/home">首頁</router-link>
+            &gt;
+            <router-link to="/products">全部商品</router-link>
+            &gt; {{ product.title }}
+          </div>
+        </div>
         <div class="col-md-6">
-          <img class="img-fluid" :src="product.imageUrl[0]" />
+          <img class="img-fluid" :src="product.imageUrl[0]" :alt="product.content" />
         </div>
         <div class="col-md-6 info">
-          <h2>{{ product.title }}</h2>
+          <h3>
+            {{ product.title }}
+            <span class="favorite text-primary"
+              :class="favoriteData.indexOf(product.id) > -1 ? 'added':''"
+              :title="`${favoriteData.indexOf(product.id) > -1 ? '取消':'加入'}收藏清單`"
+              @click.prevent="addFavorite(product.id)">
+              <i class="fas fa-bookmark" v-if="favoriteData.indexOf(product.id) > -1"></i>
+              <i class="far fa-bookmark" v-else></i>
+            </span>
+          </h3>
+          <div class="px-2 mb-3">{{ product.content }}</div>
           <div class="d-flex align-items-center">
             <div class="price-box">
               <span class="category">{{ product.category }}</span>
-              <p class="origin">NT$：{{ product.origin_price }}</p>
-              <p class="price">NT$：{{ product.price }}</p>
+              <p class="origin">原價：{{ product.origin_price | money }}</p>
+              <p class="price">售價：{{ product.price | money }}</p>
             </div>
             <div class="add-cart">
               <div class="count">
@@ -27,7 +42,7 @@
                 </select>
                 {{ product.unit }}
               </div>
-              <button class="btn btn-primary btn-lg btn-block rounded-0"
+              <button type="button" class="btn btn-primary btn-lg btn-block rounded-0"
                 @click="addCart(product.id, selectQuantity)">
                 <i class="fas fa-spinner fa-spin" v-if="isBuying"></i>
                 <i class="fas fa-shopping-cart" v-else></i>
@@ -35,10 +50,41 @@
               </button>
             </div>
           </div>
-          <h6>
-            <span>產品介紹</span>
-          </h6>
-          <div class="description"></div>
+          <div class="total">
+            小計：
+            <span>{{ countTotalPrice | money }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-12">
+          <h5 class="intro-title">商品介紹</h5>
+          <div class="intro-content description"></div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12">
+          <h5 class="intro-title">購物須知</h5>
+          <div class="intro-content">
+            <ul>
+              <li>為確保食物新鮮，我們只寄送台灣、澎湖、金門與馬祖，其餘國家與地區皆不寄送。</li>
+              <li>收到款項後，三到七天工作日後寄出商品，若有任何問題請致電告知，謝謝。</li>
+              <li>運費：台灣本島與離島皆為台幣 $100 元。</li>
+              <li>單筆訂單滿台幣 $1,200 元免運費寄送。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12">
+          <h5 class="intro-title">退換貨說明</h5>
+          <div class="intro-content">
+            <ul>
+              <li>收到商品三日後不可進行退貨。</li>
+              <li>因麵包蛋糕為消耗性商品，不是用於七天鑑賞期，除非商品本身有過期、不新鮮問題或運送中有嚴重損壞才可進行退貨，</li>
+              <li>若運送中有嚴重損壞請消費者照相存證告知。</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -49,14 +95,12 @@
             <h2 class="title">
               <span>可能會喜歡的商品</span>
             </h2>
-            <swiper :options="swiperOptions" ref="pdtSwiperRef">
+            <swiper class="swiper" :options="swiperOptions" ref="pdtSwiperRef">
               <swiper-slide v-for="item in likeProducts" :key="`like${item.id}`">
-                <div class="cover">
-                  <router-link :to="`/product/${item.id}`" title="查看詳細資訊">
-                    <img  class="img-fluid" :src="item.imageUrl[0]" alt="" />
-                  </router-link>
-                </div>
-                <div class="title">{{ item.title }}</div>
+                <router-link :to="`/product/${item.id}`" title="查看詳細資訊">
+                  <img  class="img-fluid" :src="item.imageUrl[0]" :alt="item.content" />
+                  <div class="title">{{ item.title }}</div>
+                </router-link>
               </swiper-slide>
               <div class="swiper-button-prev swiper-button-custom" slot="button-prev"
                 @click="productSwiper('slidePrev')"></div>
@@ -71,7 +115,8 @@
 </template>
 
 <script>
-/* global Quill  */
+/* global Quill, Swal */
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
 
 export default {
   data() {
@@ -81,13 +126,10 @@ export default {
       },
       likeProducts: [],
       selectQuantity: 1,
+      favoriteData: JSON.parse(localStorage.getItem('favoritePdt')) || [],
       quill: null,
       isLoading: false,
-      isBuying: false,
       swiperOptions: {
-        // pagination: {
-        //   el: '.swiper-pagination',
-        // },
         slidesPerView: 3,
         spaceBetween: 55,
         slidesPerGroup: 1,
@@ -104,6 +146,11 @@ export default {
       },
     };
   },
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
+  props: ['isBuying'],
   methods: {
     getProducts() {
       this.isLoading = true;
@@ -117,53 +164,55 @@ export default {
     },
     getProduct() {
       this.isLoading = true;
-      // const vm = this;
       const { id } = this.$route.params;
       const api = `${process.env.VUE_APP_APIPATH}/${process.env.VUE_APP_UUID}/ec/product/${id}`;
       this.$http.get(api).then((res) => {
         this.product = res.data.data;
         this.quill.setContents(JSON.parse(this.product.description));
         this.isLoading = false;
-      }).catch(() => {
+      }).catch((err) => {
         this.isLoading = false;
-      });
-    },
-    updateQuantity(id, quantity = 1) {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_APIPATH}/${process.env.VUE_APP_UUID}/ec/shopping`;
-      const cart = {
-        product: id,
-        quantity,
-      };
-      this.$http.patch(api, cart).then(() => {
-        this.getCart();
-      }).catch(() => {
-        this.isLoading = false;
+        Swal.fire({
+          title: err.response.data.errors,
+          icon: 'warning',
+        });
       });
     },
     addCart(id, quantity) {
       if (this.isBuying) return;
-      this.$bus.$emit('add-to-cart', {
-        id,
-        quantity,
-      });
-      this.isBuying = true;
+      this.$emit('add-cart', id, quantity);
+    },
+    addFavorite(id) {
+      const idx = this.favoriteData.indexOf(id);
+      if (idx < 0) {
+        this.favoriteData.push(id);
+        Swal.fire({
+          title: '已加入收藏清單',
+          icon: 'success',
+        });
+      } else {
+        this.favoriteData.splice(idx, 1);
+        Swal.fire({
+          title: '已取消收藏清單',
+          icon: 'success',
+        });
+      }
+      localStorage.setItem('favoritePdt', JSON.stringify(this.favoriteData));
     },
     productSwiper(direction) {
       this.$refs.pdtSwiperRef.$swiper[direction]();
     },
   },
+  computed: {
+    countTotalPrice() {
+      return this.product.price * this.selectQuantity;
+    },
+  },
   created() {
     this.getProducts();
     this.getProduct();
-    this.$bus.$on('clear-loading-pdt-item', () => {
-      this.isBuying = false;
-    });
   },
   mounted() {
-    this.$bus.$emit('active-menu', -1);
-    this.$bus.$emit('index-header-ctrl', false);
-
     // Quill 文字編輯器初始化
     const editor = document.querySelector('.description');
     this.quill = new Quill(editor, {

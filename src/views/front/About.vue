@@ -35,15 +35,7 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-    };
-  },
-  methods: {
-  },
   mounted() {
-    this.$bus.$emit('active-menu', 0);
-    this.$bus.$emit('index-header-ctrl', false);
     setTimeout(() => {
       document.querySelectorAll('.about-des').forEach((item) => {
         item.classList.add('slide');

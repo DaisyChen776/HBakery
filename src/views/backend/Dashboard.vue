@@ -4,7 +4,7 @@
     <nav id="backend-menu" class="navbar navbar-expand-lg navbar-light" v-if="checkSuccess">
       <div class="container">
         <a class="navbar-brand" href="#">Healthy Backery 後台管理</a>
-        <button class="navbar-toggler" type="button"
+        <button type="button" class="navbar-toggler"
           data-toggle="collapse"
           data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
@@ -38,7 +38,7 @@
       </div>
     </nav>
     <div class="container">
-      <router-view :token="token" v-if="checkSuccess" />
+      <router-view v-if="checkSuccess" />
     </div>
   </div>
 </template>
@@ -55,11 +55,11 @@ export default {
   methods: {
     checkLogin() {
       this.isLoading = true;
-      this.$http.defaults.headers.common.Authorization = `Bearer ${this.token}`;
       const api = `${process.env.VUE_APP_APIPATH}/auth/check`;
       this.$http.post(api, { api_token: this.token }).then(() => {
         this.checkSuccess = true;
         this.isLoading = false;
+        this.$http.defaults.headers.common.Authorization = `Bearer ${this.token}`;
       }).catch(() => {
         this.checkSuccess = false;
         this.$router.push('/login');
@@ -76,24 +76,10 @@ export default {
 
       });
     },
-    activeMenu(activeIdx) {
-      // header 主選單判斷選中項目
-      document.querySelectorAll('.nav-item').forEach((item, idx) => {
-        item.classList.remove('active');
-        if (idx === activeIdx) {
-          item.classList.add('active');
-        }
-      });
-    },
   },
   created() {
     this.token = document.cookie.replace(/(?:(?:^|.*;\s*)hBakeryToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
     this.checkLogin();
-
-    // event bus 接收各個項目子元件傳遞之選單項目順序
-    this.$bus.$on('active-menu', (idx) => {
-      this.activeMenu(idx);
-    });
   },
 };
 </script>

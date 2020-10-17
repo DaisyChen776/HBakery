@@ -23,7 +23,9 @@
               <font v-if="idx < (item.products.length - 1)">,</font>
             </span>
           </td>
-          <td class="text-center align-middle">{{ item.amount }}</td>
+          <td class="text-center align-middle"
+            v-html="item.amount < 1200 ? item.amount+100 : item.amount">
+          </td>
           <td class="align-middle">{{ item.payment }}</td>
           <td class="align-middle">
             <span class="text-secondary" v-if="item.coupon === null">未使用</span>
@@ -71,7 +73,7 @@ export default {
     },
     changePaidStatus(paid, id) {
       let api = `${process.env.VUE_APP_APIPATH}/${process.env.VUE_APP_UUID}/admin/ec/orders/${id}`;
-      api += `/${paid ? 'paid' : 'unpaid'}`;
+      api += paid ? '/paid' : '/unpaid';
       this.isLoading = true;
       this.$http.patch(api).then(() => {
         this.getOrders(this.pagination.paged);
@@ -82,9 +84,6 @@ export default {
   },
   created() {
     this.getOrders();
-  },
-  mounted() {
-    this.$bus.$emit('active-menu', 1);
   },
 };
 </script>

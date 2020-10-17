@@ -85,29 +85,46 @@
         </div>
       </div>
     </div>
-    <div class="index-products">
+    <div class="index-products hot">
       <div class="container">
         <h2 class="title">
           <span>精選商品</span>
         </h2>
         <div class="row">
           <div class="col-lg-12">
-            <div class="products-box">
-              <div class="box" v-for="item in hotProducts" :key="`hot${item.id}`">
-                <div class="cover">
-                  <img class="img-fluid" :src="item.imageUrl[0]" />
-                </div>
-                <div class="info">
-                  <p>{{ item.title }}</p>
-                  <div>
-                    <i class="fas fa-spinner fa-spin" v-if="loadingPdtItem === item.id"></i>
-                    <i class="fas fa-shopping-cart" title="放入購物車"
-                      @click="addCart(item.id)" v-else></i>
-                    <i class="fas fa-bookmark" title="加入收藏清單"></i>
-                    <router-link :to="`/product/${item.id}`"
-                      tag="i" class="fas fa-file-alt" title="查看詳細資訊">
-                    </router-link>
-                  </div>
+            <div class="products-box"
+              :class="animateHotProduct ? 'slide' : ''"
+              v-for="item in hotProducts" :key="`hot${item.id}`">
+              <div class="cover">
+                <img class="img-fluid" :src="item.imageUrl[0]" />
+              </div>
+              <div class="info">
+                <p>
+                  <span class="title">{{ item.title }}</span>
+                </p>
+                <div class="content" v-html="item.content.replaceAll('，','<br>')"></div>
+                <div class="btn-box">
+                  <button type="button" class="btn" title="放入購物車" @click="addCart(item.id)">
+                    <i class="fas fa-spinner fa-spin"
+                      v-if="loadingPdtItem === item.id && isBuying"></i>
+                    <i class="fas fa-shopping-cart" v-else></i>
+                    放入購物車
+                  </button>
+                  <router-link :to="`/product/${item.id}`"
+                    class="btn" title="查看詳細資訊">
+                    <i class="fas fa-file-alt"></i>
+                    詳細資訊
+                  </router-link>
+                  <button type="button" class="btn"
+                    :title="`${favoriteData.indexOf(item.id) > -1 ? '取消':'加入'}收藏清單`"
+                    @click.prevent="addFavorite(item.id, item.title)">
+                    <span v-if="favoriteData.indexOf(item.id) > -1">
+                      <i class="fas fa-bookmark"></i> 取消收藏
+                    </span>
+                    <span v-else>
+                      <i class="far fa-bookmark"></i> 加入收藏
+                    </span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -115,21 +132,47 @@
         </div>
       </div>
     </div>
-    <div class="index-contact">
+    <div class="index-products new">
       <div class="container">
+        <h2 class="title">
+          <span>新進商品</span>
+        </h2>
         <div class="row">
-          <div class="col-lg-6 col-md-6">
-            <div class="contact">
-              <h2 class="title">
-                <span>聯絡我們</span>
-              </h2>
-              <p>電話：03-233111222</p>
-              <p>地址：桃園市大園區新生路四段249號</p>
-              <p>E-mail：hbakery@hbakery.com.tw</p>
+          <div class="col-lg-6 col-md-6" v-for="item in newProducts" :key="`new${item.id}`">
+            <div class="products-box" :class="animateNewProduct ? 'slide' : ''">
+              <div class="cover">
+                <img class="img-fluid" :src="item.imageUrl[0]" />
+              </div>
+              <div class="info">
+                <p>
+                  <span class="title">{{ item.title }}</span>
+                </p>
+                <div class="content" v-html="item.content.replaceAll('，','<br>')"></div>
+                <div class="btn-box">
+                  <button type="button" class="btn" title="放入購物車" @click="addCart(item.id)">
+                    <i class="fas fa-spinner fa-spin"
+                      v-if="loadingPdtItem === item.id && isBuying"></i>
+                    <i class="fas fa-shopping-cart" v-else></i>
+                    放入購物車
+                  </button>
+                  <router-link :to="`/product/${item.id}`"
+                    class="btn" title="查看詳細資訊">
+                    <i class="fas fa-file-alt"></i>
+                    詳細資訊
+                  </router-link>
+                  <button type="button" class="btn"
+                    :title="`${favoriteData.indexOf(item.id) > -1 ? '取消':'加入'}收藏清單`"
+                    @click.prevent="addFavorite(item.id, item.title)">
+                    <span v-if="favoriteData.indexOf(item.id) > -1">
+                      <i class="fas fa-bookmark"></i> 取消收藏
+                    </span>
+                    <span v-else>
+                      <i class="far fa-bookmark"></i> 加入收藏
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="col-lg-6 col-md-6">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.7720194012895!2d121.21121801494229!3d25.007861545492894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346821097b7d4749%3A0xe8fecc4695f413bb!2zMzIw5qGD5ZyS5biC5Lit5aOi5Y2A5paw55Sf6Lev5Zub5q61MjQ56Jmf!5e0!3m2!1szh-TW!2stw!4v1601792847367!5m2!1szh-TW!2stw" width="100%" height="80%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
           </div>
         </div>
       </div>
@@ -138,13 +181,11 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue';
-/* global $  */
+/* global $, Swal */
 
 export default {
   name: 'Home',
-  props: ['scrollTop'],
+  props: ['scrollTop', 'isBuying'],
   data() {
     return {
       coupons: [
@@ -167,6 +208,8 @@ export default {
       ],
       getCoupon: false,
       hotProducts: [],
+      newProducts: [],
+      favoriteData: JSON.parse(localStorage.getItem('favoritePdt')) || [],
       isLoading: false,
       loadingPdtItem: '',
     };
@@ -176,7 +219,7 @@ export default {
       const y = document.querySelector('.index-banner').offsetHeight - document.querySelector('header').offsetHeight;
       $('html, body').animate({
         scrollTop: y,
-      }, 1000);
+      }, 800);
     },
     randomCoupon() {
       this.coupons.sort(() => (Math.random() > 0.5 ? -1 : 1));
@@ -195,19 +238,40 @@ export default {
       this.isLoading = true;
       const api = `${process.env.VUE_APP_APIPATH}/${process.env.VUE_APP_UUID}/ec/products?page=1&paged=4`;
       this.$http.get(api).then((res) => {
-        this.hotProducts = res.data.data;
+        const products = res.data.data;
+        products.forEach((item, idx) => {
+          this[idx < 2 ? 'hotProducts' : 'newProducts'].push(item);
+        });
         this.isLoading = false;
-      }).catch(() => {
+      }).catch((err) => {
         this.isLoading = false;
+        Swal.fire({
+          title: err.response.data.errors,
+          icon: 'warning',
+        });
       });
     },
     addCart(id) {
-      if (this.loadingPdtItem !== '') return;
+      if (this.isBuying) return;
       this.loadingPdtItem = id;
-      this.$bus.$emit('add-to-cart', {
-        id,
-        quantity: 1,
-      });
+      this.$emit('add-cart', id);
+    },
+    addFavorite(id, title) {
+      const idx = this.favoriteData.indexOf(id);
+      if (idx < 0) {
+        this.favoriteData.push(id);
+        Swal.fire({
+          title: `「${title}」已加入收藏清單`,
+          icon: 'success',
+        });
+      } else {
+        this.favoriteData.splice(this, 1);
+        Swal.fire({
+          title: `「${title}」已取消收藏清單`,
+          icon: 'success',
+        });
+      }
+      localStorage.setItem('favoritePdt', JSON.stringify(this.favoriteData));
     },
   },
   computed: {
@@ -225,17 +289,24 @@ export default {
       }
       return !!(this.scrollTop > y);
     },
+    animateHotProduct() {
+      let y = 0;
+      if (document.querySelector('.index-products.hot')) {
+        y = document.querySelector('.index-products.hot').offsetTop / 1.5;
+      }
+      return !!(this.scrollTop > y);
+    },
+    animateNewProduct() {
+      let y = 0;
+      if (document.querySelector('.index-products.new')) {
+        y = document.querySelector('.index-products.new').offsetTop / 1.3;
+      }
+      return !!(this.scrollTop > y);
+    },
   },
   created() {
     this.randomCoupon();
     this.getProducts();
-    this.$bus.$on('clear-loading-pdt-item', () => {
-      this.loadingPdtItem = '';
-    });
-  },
-  mounted() {
-    this.$bus.$emit('active-menu', -1);
-    this.$bus.$emit('index-header-ctrl', true);
   },
 };
 </script>

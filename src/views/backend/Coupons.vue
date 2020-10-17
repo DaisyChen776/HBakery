@@ -48,7 +48,7 @@
 
 <script>
 /* global $  */
-import CouponModal from '@/components/CouponModal.vue';
+import CouponModal from '@/components/backend/CouponModal.vue';
 
 export default {
   data() {
@@ -63,7 +63,6 @@ export default {
   components: {
     CouponModal,
   },
-  props: ['token'],
   methods: {
     getCoupons(page = 1) {
       this.isLoading = true;
@@ -93,11 +92,7 @@ export default {
     },
   },
   created() {
-    this.$emit('active');
     this.getCoupons();
-  },
-  mounted() {
-    this.$bus.$emit('active-menu', 2);
   },
 };
 </script>
