@@ -1,7 +1,7 @@
 # h_bakery
 
 ## 網頁展示
-https://daisychen776.github.io/HBakery/#/home
+https://daisychen776.github.io/HBakery/#/
 
 ## Project setup
 ```
