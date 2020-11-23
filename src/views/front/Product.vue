@@ -208,6 +208,10 @@ export default {
       return this.product.price * this.selectQuantity;
     },
   },
+  watch: {
+    // 監聽單一產品頁面 router 發生變化時執行 getProduct 方法
+    $route: 'getProduct',
+  },
   created() {
     this.getProducts();
     this.getProduct();
