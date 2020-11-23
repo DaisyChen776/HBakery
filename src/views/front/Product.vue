@@ -11,10 +11,10 @@
             &gt; {{ product.title }}
           </div>
         </div>
-        <div class="col-md-6">
-          <img class="img-fluid" :src="product.imageUrl[0]" :alt="product.content" />
+        <div class="col-lg-6 col-md-12">
+          <img class="img-fluid cover" :src="product.imageUrl[0]" :alt="product.content" />
         </div>
-        <div class="col-md-6 info">
+        <div class="col-lg-6 col-md-12 info">
           <h3>
             {{ product.title }}
             <span class="favorite text-primary"
@@ -138,6 +138,20 @@ export default {
         autoplay: {
           delay: 3000,
           disableOnInteraction: false,
+        },
+        breakpoints: {
+          320: {
+            slidesPerView: 1,
+            spaceBetween: 55,
+          },
+          600: {
+            slidesPerView: 2,
+            spaceBetween: 55,
+          },
+          769: {
+            slidesPerView: 3,
+            spaceBetween: 55,
+          },
         },
         navigation: {
           nextEl: '.swiper-button-next',

@@ -167,6 +167,17 @@
     }
   }
 
+  //----- 單一產品
+  .product {
+    .cover {
+      display: block;
+      margin: 0 auto;
+    }
+    .info h3 {
+      margin-top: 20px;
+    }
+  }
+
   //----- 頁尾
   .footer-contact {
     .contact {
@@ -598,6 +609,31 @@
         .active a {
           font-size: 1.3rem;
         }
+      }
+    }
+  }
+
+  //----- 單一產品
+  .product {   
+    .info {
+      .d-flex {
+        display: block !important;
+      }
+      .price-box {
+        width: 100%;
+        padding: 0 0 15px;
+        margin-bottom: 18px;
+        border: none;
+        border-bottom: 2px solid #cac2c2;
+      }
+      .add-cart {
+        width: 100%;
+        .count {
+          justify-content: center;
+        }
+      }
+      .add-cart .count {
+        justify-content: center;
       }
     }
   }
